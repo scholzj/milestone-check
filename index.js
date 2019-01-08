@@ -1,6 +1,4 @@
 module.exports = app => {
-  app.log('Yay, the app was loaded!')
-
   app.on('pull_request', async context => {
     app.log('Received pull_request webhook!')
 
@@ -22,6 +20,7 @@ module.exports = app => {
     if (issue.data.pull_request != null) {
       app.log('Issue is a PR!')
 
+      // It is a PR, so we need to get the PR
       var pr = await context.github.pullRequests.get({owner: context.payload.repository.owner.login, repo: context.payload.repository.name, number: context.payload.issue.number})
 
       if (pr.data.milestone == null) {
@@ -36,8 +35,6 @@ module.exports = app => {
       return
     }
   })
-
-
 
   // For more information on building apps:
   // https://probot.github.io/docs/
