@@ -23,12 +23,18 @@ module.exports = app => {
       // It is a PR, so we need to get the PR
       var pr = await context.github.pullRequests.get({owner: context.payload.repository.owner.login, repo: context.payload.repository.name, number: context.payload.issue.number})
 
+      app.log("Owner: " + pr.data.head.repo.owner.login + ", Repo: " + pr.data.head.repo.name)
+      app.log("Base Owner: " + pr.data.base.repo.owner.login + ", Base Repo: " + pr.data.base.repo.name)
+
+      var owner = pr.data.base.repo.owner.login
+      var repo = pr.data.base.repo.name
+
       if (pr.data.milestone == null) {
         app.log("No milestone set => failing the status check")
-        return context.github.repos.createStatus({owner: pr.data.head.repo.owner.login, repo: pr.data.head.repo.name, sha: pr.data.head.sha, state: "failure", description: "Please set the Milestone!", context: "scholzj/milestone_check"})
+        return context.github.repos.createStatus({owner: owner, repo: repo, sha: pr.data.head.sha, state: "failure", description: "Please set the Milestone!", context: "scholzj/milestone_check"})
       } else {
         app.log("Milestone is set => passing the status check")
-        return context.github.repos.createStatus({owner: pr.data.head.repo.owner.login, repo: pr.data.head.repo.name, sha: pr.data.head.sha, state: "success", description: "Milestone is set.", context: "scholzj/milestone_check"})
+        return context.github.repos.createStatus({owner: owner, repo: repo, sha: pr.data.head.sha, state: "success", description: "Milestone is set.", context: "scholzj/milestone_check"})
       }
     } else {
       app.log('Issue is not a PR!')
