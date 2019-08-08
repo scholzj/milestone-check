@@ -1,12 +1,12 @@
 {
   "name": "milestone-check",
   "version": "1.0.0",
-  "description": "Milestone Check",
+  "description": "Checks whether milestone is set or not in GitHub PRs",
   "author": "Jakub Scholz <www@scholzj.com>",
   "license": "ISC",
-  "repository": "https://github.com//milestone-check.git",
-  "homepage": "https://github.com//milestone-check",
-  "bugs": "https://github.com//milestone-check/issues",
+  "repository": "https://github.com/scholzj/milestone-check.git",
+  "homepage": "https://github.com/scholzj/milestone-check",
+  "bugs": "https://github.com/scholzj/milestone-check/issues",
   "keywords": [
     "probot",
     "github",
@@ -20,15 +20,14 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
-    "@probot/serverless-lambda": "^0.2.0",
     "probot": "^7.2.0"
   },
   "devDependencies": {
-    "jest": "^22.4.3",
+    "jest": "^24.0.0",
     "nock": "^10.0.0",
     "nodemon": "^1.17.2",
     "smee-client": "^1.0.2",
-    "standard": "^10.0.3"
+    "standard": "^12.0.1"
   },
   "engines": {
     "node": ">= 8.3.0"
