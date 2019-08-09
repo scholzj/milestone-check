@@ -2,12 +2,18 @@ module.exports = app => {
   app.on('pull_request', async context => {
     app.log('Received pull_request webhook!')
 
+    app.log("Owner: " + context.payload.pull_request.head.repo.owner.login + ", Repo: " + context.payload.pull_request.head.repo.name)
+    app.log("Base Owner: " + context.payload.pull_request.base.repo.owner.login + ", Base Repo: " + context.payload.pull_request.base.repo.name)
+
+    var owner = context.payload.pull_request.base.repo.owner.login
+    var repo = context.payload.pull_request.base.repo.name
+
     if (context.payload.pull_request.milestone == null) {
       app.log("No milestone set => failing the status check")
-      return context.github.repos.createStatus({owner: context.payload.pull_request.head.repo.owner.login, repo: context.payload.pull_request.head.repo.name, sha: context.payload.pull_request.head.sha, state: "failure", description: "Please set the Milestone!", context: "scholzj/milestone_check"})
+      return context.github.repos.createStatus({owner: owner, repo: repo, sha: context.payload.pull_request.head.sha, state: "failure", description: "Please set the Milestone!", context: "scholzj/milestone_check"})
     } else {
       app.log("Milestone is set => passing the status check")
-      return context.github.repos.createStatus({owner: context.payload.pull_request.head.repo.owner.login, repo: context.payload.pull_request.head.repo.name, sha: context.payload.pull_request.head.sha, state: "success", description: "Milestone is set.", context: "scholzj/milestone_check"})
+      return context.github.repos.createStatus({owner: owner, repo: repo, sha: context.payload.pull_request.head.sha, state: "success", description: "Milestone is set.", context: "scholzj/milestone_check"})
     }
   })
 
