@@ -1,5 +1,5 @@
 const status_context = "Milestone Check"
-const failure_state = "failure"
+const failure_state = "pending"
 const failure_description = "Please set the milestone!"
 const success_state = "success"
 const success_description = "Great, the milestone is set."
