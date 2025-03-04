@@ -48,6 +48,11 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 mvn package -Pnative -Dquarkus.native.container-build=true
 ```
 
+You can also build linux/amd64 native binary on arm64 MacOS with this command:
+```shell script
+mvn package -Dnative -Dquarkus.native.container-build=true -Dquarkus.docker.buildx.platform=linux/amd64 -DskipTests -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:23.1.6.0-Final-java21-amd64
+```
+
 You can then execute your native executable with: `./target/my-github-app-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
